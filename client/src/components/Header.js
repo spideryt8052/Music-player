@@ -41,6 +41,9 @@ const Header = ({ onNavClick, isAdmin, userName, onLogout }) => {
             <button className="nav-link" onClick={() => handleNavClick('playlist')}>
               📝 Playlist
             </button>
+            <button className="nav-link" onClick={() => handleNavClick('artists')}>
+              🎤 Artists
+            </button>
             <button className="nav-link" onClick={() => handleNavClick('recent')}>
               🕒 Recent
             </button>

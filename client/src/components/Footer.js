@@ -28,6 +28,7 @@ const Footer = ({ onNavClick }) => {
             <ul>
               <li><button type="button" className="footer-link" onClick={() => handleQuickLinkClick('home')}>Home</button></li>
               <li><button type="button" className="footer-link" onClick={() => handleQuickLinkClick('playlist')}>Playlists</button></li>
+              <li><button type="button" className="footer-link" onClick={() => handleQuickLinkClick('artists')}>Artists</button></li>
               <li><button type="button" className="footer-link" onClick={() => handleQuickLinkClick('favorites')}>Favorites</button></li>
               <li><button type="button" className="footer-link" onClick={() => handleQuickLinkClick('recent')}>Recent</button></li>
             </ul>

@@ -23,6 +23,8 @@ import Documentation from './pages/Documentation';
 import Support from './pages/Support';
 import Feedback from './pages/Feedback';
 import About from './pages/About';
+import Artists from './pages/Artists';
+import ArtistSection from './pages/ArtistSection';
 import Player from './components/Player';
 import NowPlayingSidebar from './components/NowPlayingSidebar';
 import AdModal from './components/AdModal';
@@ -42,6 +44,7 @@ function App() {
   const songsPlayedCountRef = useRef(0);
   const [showAdModal, setShowAdModal] = useState(false);
   const [subscriptionPlan, setSubscriptionPlan] = useState('free');
+  const [selectedArtist, setSelectedArtist] = useState(null);
 
   // Handle social login redirects that return with a token in the URL.
   useEffect(() => {
@@ -178,6 +181,7 @@ function App() {
     setIsLoggedIn(false);
     setUserName('');
     setCurrentPage('home');
+    setSelectedArtist(null);
     setCurrentSong(null);
     songsPlayedCountRef.current = 0;
     setShowAdModal(false);
@@ -245,6 +249,15 @@ function App() {
   // Handle upload success
   const handleUploadSuccess = (message) => {
     showToast(message, 'success');
+  };
+
+  const handleArtistSelect = (artist) => {
+    setSelectedArtist(artist);
+    setCurrentPage('artist-section');
+  };
+
+  const handleBackToArtists = () => {
+    setCurrentPage('artists');
   };
 
   // Show Now Playing sidebar only on Home when a song exists.
@@ -387,6 +400,27 @@ function App() {
         return <Feedback onToast={showToast} />;
       case 'about':
         return <About />;
+      case 'artists':
+        return (
+          <Artists
+            songs={allSongs}
+            onSongSelect={handleSongPlay}
+            onToggleFavorite={toggleFavorite}
+            favorites={favorites}
+            onSelectArtist={handleArtistSelect}
+          />
+        );
+      case 'artist-section':
+        return (
+          <ArtistSection
+            artist={selectedArtist}
+            songs={allSongs}
+            onSongSelect={handleSongPlay}
+            onToggleFavorite={toggleFavorite}
+            favorites={favorites}
+            onBack={handleBackToArtists}
+          />
+        );
       default:
         return null;
     }
