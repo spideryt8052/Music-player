@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import Login from './pages/Login';
 import AdminLogin from './pages/AdminLogin';
 import Signup from './pages/Signup';
+import ForgotPassword from './pages/ForgotPassword';
 import Home from './pages/Home';
 import Playlist from './pages/Playlist';
 import Recent from './pages/Recent';
@@ -36,7 +37,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [isAdmin, setIsAdmin] = useState(false);
   const [userName, setUserName] = useState('');
-  const [authPage, setAuthPage] = useState('login'); // 'login', 'signup', or 'admin-login'
+  const [authPage, setAuthPage] = useState('login'); // 'login', 'signup', 'admin-login', or 'forgot-password'
   const [allSongs, setAllSongs] = useState([]);
   const [currentSongIndex, setCurrentSongIndex] = useState(-1);
   const [showNowPlaying, setShowNowPlaying] = useState(false);
@@ -172,6 +173,11 @@ function App() {
     setIsAdmin(adminStatus);
     showToast(message, type);
     setCurrentPage('home');
+  };
+
+  const handleForgotPasswordSuccess = (message, type = 'success') => {
+    showToast(message, type);
+    setAuthPage('login');
   };
 
   // Handle logout
@@ -436,12 +442,20 @@ function App() {
           onLoginSuccess={handleLoginSuccess}
           onSwitchToSignup={() => setAuthPage('signup')}
           onSwitchToAdminLogin={() => setAuthPage('admin-login')}
+          onSwitchToForgotPassword={() => setAuthPage('forgot-password')}
         />
       );
     } else if (authPage === 'admin-login') {
       return (
         <AdminLogin
           onLoginSuccess={handleLoginSuccess}
+          onBackToLogin={() => setAuthPage('login')}
+        />
+      );
+    } else if (authPage === 'forgot-password') {
+      return (
+        <ForgotPassword
+          onResetSuccess={handleForgotPasswordSuccess}
           onBackToLogin={() => setAuthPage('login')}
         />
       );

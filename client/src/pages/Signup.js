@@ -11,6 +11,7 @@ const Signup = ({ onSignupSuccess, onSwitchToLogin }) => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
+    mobileNumber: '',
     password: '',
     confirmPassword: ''
   });
@@ -47,6 +48,7 @@ const Signup = ({ onSignupSuccess, onSwitchToLogin }) => {
         body: JSON.stringify({
           username: formData.username,
           email: formData.email,
+          mobileNumber: formData.mobileNumber,
           password: formData.password
         }),
       });
@@ -62,7 +64,7 @@ const Signup = ({ onSignupSuccess, onSwitchToLogin }) => {
         onSignupSuccess?.('Account created! Welcome!', 'success');
 
         // Clear form
-        setFormData({ username: '', email: '', password: '', confirmPassword: '' });
+        setFormData({ username: '', email: '', mobileNumber: '', password: '', confirmPassword: '' });
       } else {
         setError(data.message || 'Registration failed');
       }
@@ -128,6 +130,20 @@ const Signup = ({ onSignupSuccess, onSwitchToLogin }) => {
                 value={formData.email}
                 onChange={handleInputChange}
                 placeholder="Enter your email"
+                required
+                disabled={loading}
+              />
+            </div>
+
+            {/* Mobile Number */}
+            <div className="form-group">
+              <label>Mobile Number</label>
+              <input
+                type="tel"
+                name="mobileNumber"
+                value={formData.mobileNumber}
+                onChange={handleInputChange}
+                placeholder="Enter your mobile number"
                 required
                 disabled={loading}
               />

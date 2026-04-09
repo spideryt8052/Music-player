@@ -103,8 +103,41 @@
   font-size: 0.8rem;
 }
 
+.success-message-inline {
+  margin-bottom: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(36, 199, 104, 0.42);
+  background: rgba(36, 199, 104, 0.12);
+  color: #c9f7de;
+  padding: 10px 12px;
+  font-size: 0.8rem;
+}
+
 .animate-shake {
   animation: shake 0.35s;
+}
+
+.auth-mode-toggle {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.auth-mode-btn {
+  border: 1px solid rgba(90, 140, 120, 0.35);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.auth-mode-btn.active {
+  background: rgba(36, 199, 104, 0.12);
+  border-color: rgba(36, 199, 104, 0.5);
+  color: var(--text-primary);
 }
 
 .login-form {
@@ -160,6 +193,31 @@
   color: var(--text-primary);
 }
 
+.forgot-password-link {
+  width: fit-content;
+  margin-top: 4px;
+  border: none;
+  background: none;
+  color: var(--secondary-bg);
+  font-size: 0.78rem;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.forgot-password-link:hover {
+  color: var(--secondary-bg-soft);
+}
+
+.otp-send-btn {
+  margin-top: 0;
+}
+
+.otp-hint {
+  color: var(--text-muted);
+  font-size: 0.74rem;
+  margin-top: -2px;
+}
+
 .submit-btn {
   margin-top: 4px;
   width: 100%;
@@ -190,65 +248,6 @@
   border-top-color: #042513;
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
-}
-
-.auth-divider {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 14px 0 10px;
-  font-size: 0.66rem;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.auth-divider::before,
-.auth-divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.social-login {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.social-btn {
-  width: 100%;
-  border-radius: 10px;
-  padding: 10px 12px;
-  border: 1px solid transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-size: 0.8rem;
-  font-weight: 700;
-}
-
-.social-icon {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.8rem;
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.google-btn {
-  background: #f8fafc;
-  color: #111827;
-}
-
-.facebook-btn {
-  background: #1877f2;
-  color: #fff;
 }
 
 .demo-info {
