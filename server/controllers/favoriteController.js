@@ -2,7 +2,12 @@ const Favorite = require('../models/Favorite');
 
 const getFavorites = async (req, res) => {
   try {
-    const favorites = await Favorite.find({ user: req.user?.id })
+    const userId = req.user?.id;
+    if (!userId) {
+      return res.status(401).json({ success: false, message: 'Authentication required' });
+    }
+
+    const favorites = await Favorite.find({ user: userId })
       .populate('song')
       .sort({ createdAt: -1 });
 
@@ -14,6 +19,11 @@ const getFavorites = async (req, res) => {
 
 const addFavorite = async (req, res) => {
   try {
+    const userId = req.user?.id;
+    if (!userId) {
+      return res.status(401).json({ success: false, message: 'Authentication required' });
+    }
+
     const { songId } = req.body;
 
     if (!songId) {
@@ -21,13 +31,13 @@ const addFavorite = async (req, res) => {
     }
 
     // Check if already favorited
-    const existing = await Favorite.findOne({ user: req.user?.id, song: songId });
+    const existing = await Favorite.findOne({ user: userId, song: songId });
     if (existing) {
       return res.status(400).json({ success: false, message: 'Already favorited' });
     }
 
     const favorite = new Favorite({
-      user: req.user?.id,
+      user: userId,
       song: songId,
     });
 
@@ -40,13 +50,18 @@ const addFavorite = async (req, res) => {
 
 const removeFavorite = async (req, res) => {
   try {
+    const userId = req.user?.id;
+    if (!userId) {
+      return res.status(401).json({ success: false, message: 'Authentication required' });
+    }
+
     const { songId } = req.params;
 
     if (!songId) {
       return res.status(400).json({ success: false, message: 'Song ID is required' });
     }
 
-    const favorite = await Favorite.findOneAndDelete({ user: req.user?.id, song: songId });
+    const favorite = await Favorite.findOneAndDelete({ user: userId, song: songId });
 
     if (!favorite) {
       return res.status(404).json({ success: false, message: 'Favorite not found' });

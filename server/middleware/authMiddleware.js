@@ -1,6 +1,14 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
+const getJwtSecret = () => {
+  const jwtSecret = (process.env.JWT_SECRET || '').trim();
+  if (!jwtSecret) {
+    throw new Error('JWT_SECRET is not configured');
+  }
+  return jwtSecret;
+};
+
 const protect = (req, res, next) => {
   try {
     const token = req.header('Authorization')?.replace('Bearer ', '');
@@ -12,7 +20,7 @@ const protect = (req, res, next) => {
       });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
+    const decoded = jwt.verify(token, getJwtSecret());
     req.user = decoded;
     next();
   } catch (error) {

@@ -2,7 +2,12 @@ const Playlist = require('../models/Playlist');
 
 const getPlaylists = async (req, res) => {
   try {
-    const playlists = await Playlist.find()
+    const userId = req.user?.id;
+    if (!userId) {
+      return res.status(401).json({ success: false, message: 'Authentication required' });
+    }
+
+    const playlists = await Playlist.find({ user: userId })
       .populate('user', 'username')
       .populate('songs')
       .sort({ createdAt: -1 });
@@ -15,6 +20,11 @@ const getPlaylists = async (req, res) => {
 
 const createPlaylist = async (req, res) => {
   try {
+    const userId = req.user?.id;
+    if (!userId) {
+      return res.status(401).json({ success: false, message: 'Authentication required' });
+    }
+
     const { name } = req.body;
 
     if (!name) {
@@ -23,7 +33,7 @@ const createPlaylist = async (req, res) => {
 
     const playlist = new Playlist({
       name,
-      user: req.user?.id,
+      user: userId,
       songs: [],
     });
 
