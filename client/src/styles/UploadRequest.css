@@ -104,6 +104,16 @@
   border-color: #1ed760;
 }
 
+.file-input-label-optional {
+  border-style: solid;
+  border-width: 1px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.file-input-label-optional:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
 .file-input:disabled ~ .file-input-label {
   opacity: 0.6;
   cursor: not-allowed;

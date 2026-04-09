@@ -20,17 +20,41 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage,
   fileFilter: (req, file, cb) => {
-    const allowedMimes = ['audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/webm'];
-    if (allowedMimes.includes(file.mimetype)) {
-      cb(null, true);
-    } else {
-      cb(new Error('Only audio files are allowed'));
+    const audioMimes = ['audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/webm'];
+    const imageMimes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+
+    if (file.fieldname === 'file') {
+      if (audioMimes.includes(file.mimetype)) {
+        cb(null, true);
+      } else {
+        cb(new Error('Only audio files are allowed'));
+      }
+      return;
     }
+
+    if (file.fieldname === 'cover') {
+      if (imageMimes.includes(file.mimetype)) {
+        cb(null, true);
+      } else {
+        cb(new Error('Only image files are allowed for cover'));
+      }
+      return;
+    }
+
+    cb(new Error('Unexpected file field'));
   },
 });
 
 // User routes
-router.post('/', protect, upload.single('file'), songRequestController.createSongRequest);
+router.post(
+  '/',
+  protect,
+  upload.fields([
+    { name: 'file', maxCount: 1 },
+    { name: 'cover', maxCount: 1 }
+  ]),
+  songRequestController.createSongRequest
+);
 router.get('/my-requests', protect, songRequestController.getUserRequests);
 
 // Admin routes

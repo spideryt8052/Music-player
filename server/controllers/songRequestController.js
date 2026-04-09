@@ -15,12 +15,16 @@ const createSongRequest = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Title and artist are required' });
     }
 
-    if (!req.file) {
+    const audioFile = req.files?.file?.[0];
+    const coverFile = req.files?.cover?.[0];
+
+    if (!audioFile) {
       return res.status(400).json({ success: false, message: 'Audio file is required' });
     }
 
     const baseUrl = process.env.BASE_URL || 'http://localhost:5000';
-    const audioUrl = `${baseUrl}/uploads/${req.file.filename}`;
+    const audioUrl = `${baseUrl}/uploads/${audioFile.filename}`;
+    const coverUrl = coverFile ? `${baseUrl}/uploads/${coverFile.filename}` : undefined;
 
     // Check for duplicate pending requests
     const existingRequest = await SongRequest.findOne({
@@ -44,6 +48,7 @@ const createSongRequest = async (req, res) => {
       duration: parseInt(duration) || 0,
       description,
       audioUrl,
+      coverUrl,
       requestedBy: userId
     });
 

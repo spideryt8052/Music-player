@@ -11,6 +11,7 @@ const UploadRequest = ({ onToast }) => {
     duration: ''
   });
   const [audioFile, setAudioFile] = useState(null);
+  const [coverFile, setCoverFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -42,6 +43,27 @@ const UploadRequest = ({ onToast }) => {
     }
   };
 
+  const handleCoverChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) {
+      setCoverFile(null);
+      return;
+    }
+
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+    if (!allowedTypes.includes(file.type)) {
+      onToast('Only image files are allowed (JPG, PNG, WEBP, GIF)', 'error');
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      onToast('Image size should not exceed 5MB', 'error');
+      return;
+    }
+
+    setCoverFile(file);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -65,6 +87,9 @@ const UploadRequest = ({ onToast }) => {
       data.append('duration', formData.duration);
       data.append('description', formData.description);
       data.append('file', audioFile);
+      if (coverFile) {
+        data.append('cover', coverFile);
+      }
 
       const token = localStorage.getItem('token');
       const response = await fetch('http://localhost:5000/api/song-requests', {
@@ -87,6 +112,7 @@ const UploadRequest = ({ onToast }) => {
           duration: ''
         });
         setAudioFile(null);
+        setCoverFile(null);
         setSubmitted(true);
       } else {
         onToast(result.message || 'Failed to submit request', 'error');
@@ -145,6 +171,31 @@ const UploadRequest = ({ onToast }) => {
                 </label>
               </div>
               <small>Supported formats: MP3, WAV, OGG, WebM (Max 50MB)</small>
+            </div>
+
+            {/* Cover Image Upload */}
+            <div className="form-group">
+              <label htmlFor="coverFile">🖼️ Cover Image (Optional)</label>
+              <div className="file-input-wrapper">
+                <input
+                  type="file"
+                  id="coverFile"
+                  accept="image/*"
+                  onChange={handleCoverChange}
+                  disabled={loading}
+                  className="file-input"
+                />
+                <label htmlFor="coverFile" className="file-input-label file-input-label-optional">
+                  {coverFile ? (
+                    <>
+                      ✓ {coverFile.name}
+                    </>
+                  ) : (
+                    <>Click to select cover image</>
+                  )}
+                </label>
+              </div>
+              <small>Supported formats: JPG, PNG, WEBP, GIF (Max 5MB)</small>
             </div>
 
             {/* Song Title */}
