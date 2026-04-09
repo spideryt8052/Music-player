@@ -59,17 +59,16 @@ const Artists = ({ songs = [], onSongSelect, onToggleFavorite, favorites = [], o
     );
   });
 
-  const featuredArtists = filteredArtists.slice(0, 6);
+  const visibleArtists = filteredArtists;
 
   return (
     <div className="artists-page fade-in-up">
       <section className="artist-hero section">
         <div className="artist-hero-copy">
           <span className="artist-kicker">Artist Library</span>
-          <h1>Discover artists, explore their catalog, and jump into their best songs.</h1>
+          <h1>Discover every artist in your library, explore their catalog, and jump into their best songs.</h1>
           <p>
-            Browse the most active artists in your collection, then open a dedicated section page for
-            deep listening.
+            Browse the full artist collection, then open a dedicated section page for deep listening.
           </p>
         </div>
         <div className="artist-search-wrap">
@@ -85,13 +84,13 @@ const Artists = ({ songs = [], onSongSelect, onToggleFavorite, favorites = [], o
 
       <section className="section">
         <div className="section-header">
-          <h2>Featured Artists</h2>
+          <h2>All Artists</h2>
           <span className="artist-count-badge">{filteredArtists.length} total</span>
         </div>
 
         <div className="artist-grid">
-          {featuredArtists.length > 0 ? (
-            featuredArtists.map((artist) => (
+          {visibleArtists.length > 0 ? (
+            visibleArtists.map((artist) => (
               <button
                 key={artist.name}
                 type="button"
@@ -119,13 +118,13 @@ const Artists = ({ songs = [], onSongSelect, onToggleFavorite, favorites = [], o
 
       <section className="section">
         <div className="section-header">
-          <h2>Popular Tracks by Artist</h2>
-          <span className="artist-count-badge">Top picks</span>
+          <h2>Top Songs by Artist</h2>
+          <span className="artist-count-badge">All artists included</span>
         </div>
 
         <div className="artist-track-list">
-          {featuredArtists.length > 0 ? (
-            featuredArtists.map((artist) => (
+          {visibleArtists.length > 0 ? (
+            visibleArtists.map((artist) => (
               <article key={artist.name} className="artist-track-block">
                 <div className="artist-track-header">
                   <div>
