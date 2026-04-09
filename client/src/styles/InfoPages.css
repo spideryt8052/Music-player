@@ -1,0 +1,132 @@
+/* Shared styles for Help/Docs/Support/Feedback pages */
+.info-page {
+  width: 100%;
+  border: 1px solid rgba(83, 132, 113, 0.32);
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(14, 31, 25, 0.86), rgba(9, 20, 16, 0.94));
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.info-hero {
+  border: 1px solid rgba(83, 132, 113, 0.28);
+  border-radius: 12px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.info-kicker {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.info-hero h1 {
+  margin: 6px 0;
+  font-size: clamp(1.35rem, 2.2vw, 1.9rem);
+}
+
+.info-hero p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.info-section {
+  border: 1px solid rgba(83, 132, 113, 0.22);
+  border-radius: 12px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.info-section h2 {
+  margin: 0 0 10px;
+  font-size: 1rem;
+}
+
+.info-section p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.info-section ul {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-section li {
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.info-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.info-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.info-form input,
+.info-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(83, 132, 113, 0.42);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-primary);
+}
+
+.info-form textarea {
+  resize: vertical;
+}
+
+.info-submit-btn {
+  align-self: flex-start;
+  border-radius: 999px;
+  border: none;
+  padding: 9px 16px;
+  background: linear-gradient(145deg, var(--secondary-bg), var(--secondary-bg-soft));
+  color: #052313;
+  font-weight: 700;
+}
+
+.info-submit-btn:disabled {
+  opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+  .info-page {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .info-hero,
+  .info-section {
+    padding: 12px;
+  }
+
+  .info-section h2 {
+    font-size: 0.94rem;
+  }
+
+  .info-section li,
+  .info-section p,
+  .info-hero p {
+    font-size: 0.82rem;
+  }
+
+  .info-form-grid {
+    grid-template-columns: 1fr;
+  }
+}

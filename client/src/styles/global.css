@@ -1,0 +1,213 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-bg: #07120f;
+  --primary-bg-soft: #0d1e19;
+  --secondary-bg: #24c768;
+  --secondary-bg-soft: #1ea95a;
+  --tertiary-bg: #102621;
+  --hover-bg: #17332b;
+  --surface-glass: rgba(19, 41, 34, 0.76);
+  --surface-card: rgba(12, 27, 22, 0.88);
+  --surface-card-hover: rgba(19, 41, 34, 0.96);
+  --text-primary: #f2fff8;
+  --text-secondary: #a9c8ba;
+  --text-muted: #759384;
+  --border-color: rgba(58, 103, 85, 0.45);
+  --glow-accent: rgba(36, 199, 104, 0.35);
+  --danger: #ff7171;
+  --warning: #ffcb68;
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.45);
+  --shadow-md: 0 12px 30px rgba(0, 0, 0, 0.32);
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  color: var(--text-primary);
+  background:
+    radial-gradient(circle at 8% 8%, rgba(36, 199, 104, 0.22) 0%, transparent 36%),
+    radial-gradient(circle at 88% 14%, rgba(63, 138, 255, 0.18) 0%, transparent 34%),
+    linear-gradient(165deg, #05100d 0%, #07120f 52%, #0b1915 100%);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+p {
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+a {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+a:hover {
+  color: var(--secondary-bg);
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease, color 0.22s ease;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+input,
+textarea,
+select {
+  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-primary);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--secondary-bg);
+  box-shadow: 0 0 0 3px rgba(36, 199, 104, 0.2);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(36, 199, 104, 0.65) 0%, rgba(30, 169, 90, 0.75) 100%);
+  border-radius: 999px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(36, 199, 104, 0.9) 0%, rgba(30, 169, 90, 0.95) 100%);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.loading {
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.btn-primary {
+  background: linear-gradient(145deg, var(--secondary-bg) 0%, var(--secondary-bg-soft) 100%);
+  color: #03240f;
+  border-radius: 999px;
+  font-weight: 700;
+  padding: 10px 24px;
+  box-shadow: 0 10px 24px var(--glow-accent);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.01);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  padding: 9px 20px;
+}
+
+.btn-secondary:hover {
+  color: var(--text-primary);
+  border-color: rgba(36, 199, 104, 0.65);
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.5s ease both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --radius-lg: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+}
