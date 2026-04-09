@@ -3,7 +3,15 @@ import '../styles/Home.css';
 import SongCard from '../components/SongCard';
 import AdsenseBanner from '../components/AdsenseBanner';
 
-const Home = ({ onSongSelect, onToast, favorites, onToggleFavorite, showAds = false }) => {
+const Home = ({
+  onSongSelect,
+  onToast,
+  favorites,
+  onToggleFavorite,
+  onSelectArtist,
+  onOpenArtistsPage,
+  showAds = false,
+}) => {
   const [featured, setFeatured] = useState([]);
   const [recent, setRecent] = useState([]);
   const [topCharts, setTopCharts] = useState([]);
@@ -60,6 +68,28 @@ const Home = ({ onSongSelect, onToast, favorites, onToggleFavorite, showAds = fa
     song.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     song.artist?.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const artistDirectory = allSongs.reduce((acc, song) => {
+    const artistName = (song.artist || 'Unknown Artist').trim();
+    const key = artistName.toLowerCase();
+    const existing = acc.get(key);
+
+    if (!existing) {
+      acc.set(key, { name: artistName, count: 1, topSong: song });
+      return acc;
+    }
+
+    existing.count += 1;
+    if ((song.playCount || 0) > (existing.topSong?.playCount || 0)) {
+      existing.topSong = song;
+    }
+
+    return acc;
+  }, new Map());
+
+  const homeArtists = Array.from(artistDirectory.values())
+    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name))
+    .slice(0, 8);
 
   if (loading) {
     return <div className="home-loading">🎵 Loading your music library...</div>;
@@ -149,6 +179,36 @@ const Home = ({ onSongSelect, onToast, favorites, onToggleFavorite, showAds = fa
                 ))
               ) : (
                 <p className="no-songs">No top charts yet</p>
+              )}
+            </div>
+          </div>
+
+          {/* Artists */}
+          <div className="section">
+            <div className="section-header">
+              <h2>🎤 Artists</h2>
+              <button type="button" className="see-all see-all-btn" onClick={onOpenArtistsPage}>
+                See all artists
+              </button>
+            </div>
+            <div className="home-artists-grid">
+              {homeArtists.length > 0 ? (
+                homeArtists.map((artist) => (
+                  <button
+                    key={artist.name}
+                    type="button"
+                    className="home-artist-card"
+                    onClick={() => onSelectArtist?.({ name: artist.name })}
+                  >
+                    <div className="home-artist-avatar">{artist.name.charAt(0).toUpperCase()}</div>
+                    <div className="home-artist-info">
+                      <h3>{artist.name}</h3>
+                      <p>{artist.count} songs</p>
+                    </div>
+                  </button>
+                ))
+              ) : (
+                <p className="no-songs">No artists available</p>
               )}
             </div>
           </div>

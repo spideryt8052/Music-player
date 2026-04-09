@@ -332,6 +332,8 @@ function App() {
             onToast={showToast}
             favorites={favorites}
             onToggleFavorite={toggleFavorite}
+            onSelectArtist={handleArtistSelect}
+            onOpenArtistsPage={() => setCurrentPage('artists')}
             showAds={!isAdmin && subscriptionPlan === 'free'}
           />
         );
@@ -481,7 +483,7 @@ function App() {
         onPrevious={handlePrevious}
         shouldPause={showAdModal}
       />
-      <Footer onNavClick={setCurrentPage} />
+      {currentPage !== 'home' && <Footer onNavClick={setCurrentPage} />}
       <AdModal 
         isVisible={showAdModal}
         onUpgrade={() => {

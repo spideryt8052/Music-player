@@ -60,6 +60,58 @@
   margin: 0;
 }
 
+.see-all-btn {
+  background: transparent;
+}
+
+.home-artists-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 12px;
+}
+
+.home-artist-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(54, 98, 82, 0.35);
+  background: linear-gradient(145deg, rgba(18, 37, 31, 0.88) 0%, rgba(12, 24, 20, 0.96) 100%);
+  color: var(--text-primary);
+}
+
+.home-artist-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(36, 199, 104, 0.55);
+}
+
+.home-artist-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: #042513;
+  background: linear-gradient(145deg, #75f4ad, #24c768);
+  flex-shrink: 0;
+}
+
+.home-artist-info h3 {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.home-artist-info p {
+  margin-top: 3px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
 .no-songs,
 .no-results {
   grid-column: 1 / -1;
@@ -115,6 +167,10 @@
     max-width: 100%;
     padding: 10px 12px;
     font-size: 0.83rem;
+  }
+
+  .home-artists-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
 }
 

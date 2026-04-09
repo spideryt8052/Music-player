@@ -2,7 +2,8 @@
 .upload-request-container {
   max-width: 600px;
   margin: 40px auto;
-  background: var(--secondary-bg, #282828);
+  background: linear-gradient(180deg, #3a3d42 0%, #2f3237 100%);
+  border: 1px solid #4a4f57;
   border-radius: 16px;
   padding: 40px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
